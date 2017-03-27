@@ -15,7 +15,7 @@ These installation instructions need to be updated after we open source and publ
 Add this to your application's Gemfile:
 
 ```ruby
-source "https://xxx/gems/nike-gems"
+source 'https://rubygems.org'
 gem 'cerberus_client' 
 ```
 
@@ -26,7 +26,7 @@ $ bundle
     
 Or do it yourself:
 ```bash 
-$ gem install cerberus_client --source "https://xxx/gems/nike-gems"
+$ gem install cerberus_client 
 ```
 
 ## Usage
