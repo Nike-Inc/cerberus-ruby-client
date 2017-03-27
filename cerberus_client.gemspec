@@ -10,13 +10,12 @@ Gem::Specification.new do |spec|
   spec.email         = ["joe.teibel@nike.com"]
 
   spec.summary       = ["A Ruby Client for Cerberus, a secure property store for cloud applications"]
+  spec.description   = "This is a Ruby based client library for communicating with Vault via HTTP and enables authentication schemes specific to AWS and Cerberus. This client currently supports read-only operations (write operations are not yet implemented, feel free to open a pull request to implement write operations). To learn more about Cerberus, please visit the Cerberus website."
   spec.homepage      = "https://github.com/Nike-Inc/cerberus-ruby-client"
   spec.license       = "Apache License Version 2"
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
+    spec.metadata['allowed_push_host'] = "https://rubygems.org"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."
