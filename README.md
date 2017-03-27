@@ -1,5 +1,9 @@
 # Cerberus Ruby Client
 
+[ ![Download](https://rubygems.org/gems/cerberus_client) ](https://rubygems.org/gems/cerberus_client)
+[![][travis img]][travis]
+[![][license img]][license]
+
 This is a Ruby based client library for communicating with Vault via HTTP and enables authentication schemes specific
 to AWS and Cerberus.
 
