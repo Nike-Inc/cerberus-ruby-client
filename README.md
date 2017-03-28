@@ -1,5 +1,10 @@
 # Cerberus Ruby Client
 
+[![Gem](https://img.shields.io/gem/v/cerberus_client.svg)](https://rubygems.org/gems/cerberus_client)
+[![Downloads](https://img.shields.io/gem/dt/cerberus_client.svg)](https://rubygems.org/gems/cerberus_client)
+[![Build](https://img.shields.io/travis/Nike-Inc/cerberus-ruby-client/master.svg)](https://travis-ci.org/Nike-Inc/cerberus-ruby-client)
+
+
 This is a Ruby based client library for communicating with Vault via HTTP and enables authentication schemes specific
 to AWS and Cerberus.
 
@@ -15,7 +20,7 @@ These installation instructions need to be updated after we open source and publ
 Add this to your application's Gemfile:
 
 ```ruby
-source "https://xxx/gems/nike-gems"
+source 'https://rubygems.org'
 gem 'cerberus_client' 
 ```
 
@@ -26,7 +31,7 @@ $ bundle
     
 Or do it yourself:
 ```bash 
-$ gem install cerberus_client --source "https://xxx/gems/nike-gems"
+$ gem install cerberus_client 
 ```
 
 ## Usage

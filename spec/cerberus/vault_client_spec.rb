@@ -9,8 +9,7 @@ describe Cerberus::VaultClient do
 
     it "with urlResolver, validate url set" do
       fr = FakeUrlResolver.new
-      vc = Cerberus::VaultClient.new(fr,
-                                     Cerberus::DefaultCredentialsProviderChain.new(fr, FAKE_MD_SVC_URL))
+      vc = Cerberus::VaultClient.new(fr, Cerberus::DefaultCredentialsProviderChain.new(fr))
       expect(vc.vaultBaseUrl).to eq fr.getUrl
     end
 

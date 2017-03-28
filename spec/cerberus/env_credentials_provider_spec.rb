@@ -7,7 +7,7 @@ describe Cerberus::EnvCredentialsProvider do
     it "get creds" do
       envToken = ENV[Cerberus::EnvCredentialsProvider::CERBERUS_VAULT_TOKEN_ENV_KEY] = "some_token"
       ecp = Cerberus::EnvCredentialsProvider.new
-      expect(ecp.getCredentials).to eq envToken
+      expect(ecp.getClientToken).to eq envToken
     end
 
   end # context

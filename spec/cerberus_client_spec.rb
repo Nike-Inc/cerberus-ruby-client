@@ -27,7 +27,7 @@ describe CerberusClient do
 
     it "get credentials from AWS provider" do
       awsProvider = Cerberus::AwsRoleCredentialsProvider.new(
-                              CerberusClient.getUrlFromResolver(FakeUrlResolver.new), FAKE_MD_SVC_URL)
+                              CerberusClient.getUrlFromResolver(FakeUrlResolver.new))
       expect { CerberusClient::getCredentialsFromProvider(awsProvider) }.to(
           raise_error(Cerberus::Exception::NoValueError))
     end

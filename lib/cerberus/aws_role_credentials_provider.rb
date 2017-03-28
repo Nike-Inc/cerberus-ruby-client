@@ -55,7 +55,11 @@ module Cerberus
     ##
     def getClientToken
 
-      if (@clientToken == nil)
+      if (@role.nil?)
+        raise Cerberus::Exception::NoValueError
+      end
+
+      if (@clientToken.nil?)
         @clientToken = getCredentialsFromCerberus
       end
 
@@ -70,12 +74,37 @@ module Cerberus
 
     end
 
+    ##
+    # Policy: if we are given these three pieces of data, we will assume a role to do auth
+    ##
+    def should_assume_role?(roleAccountId, roleName, roleRegion)
+      !(roleName.nil? || roleAccountId.nil? || roleRegion.nil?)
+    end
+
+    ##
+    # Policy: if we do not have an instance MD service URL and we can't assume a role, then this instance
+    # of the provider cannot use a role to provide credentials.  Primarily used for testing.
+    ##
+    def have_access_to_role?(instanceMdSvcBaseUrl, roleName, roleRegion, roleAccountId)
+      (!instanceMdSvcBaseUrl.nil? || should_assume_role?(roleName, roleRegion, roleAccountId))
+    end
+
     private
 
+    ##
+    # Uses provided data to determine how to construct the AwsRoleInfo use by this provider
+    ##
     def get_role_info(instanceMdSvcBaseUrl, roleName, roleRegion, roleAccountId)
-      if (should_assume_role(roleAccountId, roleName, roleRegion))
+
+      # if we have no metedata about how to auth, we do nothing
+      # this is used in unit testing primarily
+      if (!have_access_to_role?(instanceMdSvcBaseUrl, roleName, roleRegion, roleAccountId))
+        return nil;
+      elsif (should_assume_role(roleAccountId, roleName, roleRegion))
+        # we are assuming a role to do auth
         return get_role_from_provided_info(roleName, roleRegion, roleAccountId)
       else
+        # we are using a role that the instance has associated with it
         @instanceMdSvcBaseUrl = instanceMdSvcBaseUrl.nil? ? INSTANCE_METADATA_SVC_BASE_URL : instanceMdSvcBaseUrl
 
         # collect instance MD we need to auth with Cerberus
@@ -83,12 +112,25 @@ module Cerberus
       end
     end
 
+
+    ##
+    # Get an AwsRoleInfo object from the provided data
+    ##
     def get_role_from_provided_info(roleName, roleRegion, roleAccountId)
-      role_creds = Aws::AssumeRoleCredentials.new(client: Aws::STS::Client.new(region: roleRegion), role_arn: "arn:aws:iam::#{roleAccountId}:role/#{roleName}", role_session_name: "hiera-cpe-build")
+
+      role_creds = Aws::AssumeRoleCredentials.new(
+          client: Aws::STS::Client.new(region: roleRegion),
+          role_arn: "arn:aws:iam::#{roleAccountId}:role/#{roleName}",
+          role_session_name: "hiera-cpe-build")
 
       return AwsRoleInfo.new(roleName, roleRegion, roleAccountId, credentials: role_creds)
     end
 
+    ##
+    # Use the instance metadata to extract the role information
+    # This function should only be called from an EC2 instance otherwise the http
+    # call will fail.
+    ##
     def get_role_from_instance_metadata
       role_arn = getIAMRoleARN
       region = getRegionFromAZ(getAvailabilityZone)
@@ -101,10 +143,6 @@ module Cerberus
       LOGGER.debug("roleName #{role_name}")
 
       return AwsRoleInfo.new(role_name, region, account_id, nil)
-    end
-
-    def should_assume_role(roleAccountId, roleName, roleRegion)
-      !(roleName.nil? || roleAccountId.nil? || roleRegion.nil?)
     end
 
     ##
