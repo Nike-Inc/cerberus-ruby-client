@@ -11,4 +11,4 @@ deploy:
   on:
     tags: true
     repo: Nike-Inc/cerberus-ruby-client
-    branch: publish-gem
+    branch: master
