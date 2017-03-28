@@ -1,6 +1,14 @@
 language: ruby
 rvm:
- - 2.0
- - jruby
-
+- 2.0
+- jruby
 script: bundle exec rspec spec
+deploy:
+  provider: rubygems
+  api_key:
+    secure: Qt16Y+xUbDJS1zGdXj+EFbxyj+P6+eE+KZygCvEI4s3tOmpFgPfOAhAZ0FJYZ93DjU9DjmhpXjJ/z9Ho872XKzdTnMd8PUgLts1ktnbmrsHnunMye6II9xvesMB4gaM2JogzoBdu80udMYy6tj4o1MWzJo2lVDYkFkkoEDhtOkOdExqwX2x5v9FDDzMfVKC309e7ZjuuGBQZCGxGj9J0xxOgRZkD2O/n71qo0Z0f/wFg7ELVAF1BQTBrGmoWji2yI+jtALQhlVxYfnoINPt3/P++ZvJQJrlDpRozDT/hH8Gxe+AOwqur+a3xdXrqGOw6q+/BPcYDwzlwlNTo9WiGYv1ZmZRm7UzA9iE2PU8TP7nxITP/yV5iJ502i7TDsz2RJkwXHppSLLgfGaHWvnKqPZzULgK9A3WjxQih3Bis3QlmAnkq8cnfn4wF6NUPi4cy2k/fJLYwKPUTDynRmPDiI0al02DU5nOA9MJCVYTF/pQMBDpS3CB957pkTBEhHv4OT9iJO/NJfzsP2l/tFxquQciAi67aB3HRNxHXGo4haWdplvHhgD0Col6AcLlvIlOXbuHpxHJXjlm/c/pWzXGg0zQ5OjxNtGkPgJ7UkwNpZadmdee5hNXqyQHi5a2kXAoAZyccHZf0YvY1/1KzB1qxyJD57H+mFesjeKH5+mACXfI=
+  gem: cerberus_client
+  on:
+    tags: true
+    repo: Nike-Inc/cerberus-ruby-client
+    branch: publish-gem
