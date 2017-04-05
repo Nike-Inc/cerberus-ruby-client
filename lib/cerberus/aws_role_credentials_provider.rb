@@ -100,7 +100,7 @@ module Cerberus
       # this is used in unit testing primarily
       if (!have_access_to_role?(instanceMdSvcBaseUrl, roleName, roleRegion, roleAccountId))
         return nil;
-      elsif (should_assume_role(roleAccountId, roleName, roleRegion))
+      elsif (should_assume_role?(roleAccountId, roleName, roleRegion))
         # we are assuming a role to do auth
         return get_role_from_provided_info(roleName, roleRegion, roleAccountId)
       else
