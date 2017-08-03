@@ -76,7 +76,7 @@ Name: cerberus_client
 Version: 0.0.0.rc.1
 File: cerberus_client-0.0.0.rc.1
 
-% gem install ./hola-0.0.0.gem
+% gem install ./cerberus_client-0.0.0.rc.1.gem
 Successfully installed cerberus_client-0.0.0.rc.1
 1 gem installed
 ```
