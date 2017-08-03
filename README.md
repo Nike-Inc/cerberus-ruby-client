@@ -72,9 +72,9 @@ Then build and install the gem locally:
 ```bash
 % gem build cerberus_client.gemspec
 Successfully built RubyGem
-Name: hola
-Version: 0.0.0
-File: hola-0.0.0.gem
+Name: cerberus_client
+Version: 0.0.0.rc.1
+File: cerberus_client-0.0.0.rc.1
 
 % gem install ./hola-0.0.0.gem
 Successfully installed cerberus_client-0.0.0.rc.1
