@@ -42,7 +42,6 @@ module Cerberus
     # Read operation for a specified path.
     ##
     def read(path)
-
       begin
         response = doVaultHttpGet(SECRET_PATH_PREFIX + path)
         CerberusClient::Log.instance.debug("VaultClient::read(path) HTTP response: #{response.code}, #{response.message}")
@@ -157,10 +156,11 @@ module Cerberus
     def doVaultHttpGet(relativeUri)
 
       url = URI(@vaultBaseUrl + relativeUri)
+      useSSL = ! ("#{@vaultBaseUrl}".include? "localhost")
 
       begin
         response = CerberusClient::Http.new.doHttp(url,
-                                                 'GET', true, nil,
+                                                 'GET', useSSL, nil,
                                                  {VAULT_TOKEN_HEADER_KEY =>
                                                       CerberusClient.getCredentialsFromProvider(@credentialsProvider)})
 
