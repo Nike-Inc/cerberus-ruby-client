@@ -228,7 +228,8 @@ module Cerberus
     def doAuthWithCerberus(accountId, roleName, region)
       postJsonData = JSON.generate({:account_id => accountId, :role_name => roleName, :region => region})
       authUrl = URI(@vaultBaseUrl + ROLE_AUTH_REL_URI)
-      authResponse = CerberusClient::Http.new.doHttp(authUrl, 'POST', true, postJsonData)
+      useSSL = ! ("#{@vaultBaseUrl}".include? "localhost")
+      authResponse = CerberusClient::Http.new.doHttp(authUrl, 'POST', useSSL, postJsonData)
       # if we got this far, we should have a valid response with encrypted data
       # send back the encrypted data
       JSON.parse(authResponse.body)['auth_data']
