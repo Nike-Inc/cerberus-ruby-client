@@ -4,6 +4,7 @@ module CerberusClient
   require_relative('../cerberus/exception/http_error')
   require('net/http')
   require_relative('log')
+  require_relative('version')
 
   ##
   #
@@ -38,6 +39,7 @@ module CerberusClient
         if(jsonData != nil); request.body = "#{jsonData}"; request['Content-Type'] = "application/json"; end
 
         if(headersMap != nil); headersMap.each{ |headerKey, headerValue| request[headerKey] = headerValue } end
+        request['X-Cerberus-Client'] = "CerberusRubyClient/#{CerberusClient::VERSION}"
 
         http.use_ssl = useSSL
         response = http.request(request)

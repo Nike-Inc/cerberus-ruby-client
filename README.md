@@ -21,17 +21,17 @@ Add this to your application's Gemfile:
 
 ```ruby
 source 'https://rubygems.org'
-gem 'cerberus_client' 
+gem 'cerberus_client'
 ```
 
 And then install it:
 ```bash
 $ bundle
 ```
-    
+
 Or do it yourself:
-```bash 
-$ gem install cerberus_client 
+```bash
+$ gem install cerberus_client
 ```
 
 ## Usage
@@ -54,11 +54,40 @@ environment variable, CERBERUS_ADDR, must be set:
 ```bash
 export CERBERUS_ADDR=https://cerberus.example.com
 ```
+OR
+```bash
+export CERBERUS_ADDR=https://localhost:9001
+```
 
-The example above also use the DefaultCredentialsProviderChain which is used to resolve the token needed to interact 
+The example above also use the DefaultCredentialsProviderChain which is used to resolve the token needed to interact
 with Vault. This chain will first look to see if an environemnt variable has been set with a vault token, e.g.
 ```bash
 export CERBERUS_TOKEN=9cfced14-91ae-e3ad-5b9d-1cae6c82362d
+```
+
+Increment the version and add `.rc.1` to the end in the `lib/cerberus_client/version.rb` file.
+
+Then build and install the gem locally:
+
+```bash
+% gem build cerberus_client.gemspec
+Successfully built RubyGem
+Name: cerberus_client
+Version: 0.0.0.rc.1
+File: cerberus_client-0.0.0.rc.1
+
+% gem install ./cerberus_client-0.0.0.rc.1.gem
+Successfully installed cerberus_client-0.0.0.rc.1
+1 gem installed
+```
+
+Then open Interactive Ruby:
+```bash
+% irb
+
+2.2.2 :001 > require 'cerberus_client'
+2.2.2 :001 > vaultClient = CerberusClient::getDefaultVaultClient()
+2.2.2 :001 > vaultClient.read("app/example/test")
 ```
 
 ### Running in AWS
@@ -70,7 +99,3 @@ are available in the [Cerberus quick start guide](http://engineering.nike.com/ce
 Optionally, UrlResolver and/or CredentialsProviderChain can be provided to customize how those values are used in
 your system. See lib/cerberus_client for alternative factory methods and the functions your custom objects should
 support.
-
-
-
-
