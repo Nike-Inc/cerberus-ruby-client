@@ -3,6 +3,7 @@ require_relative('../cerberus_client/log')
 require_relative('exception/no_value_error')
 require_relative('exception/no_valid_providers')
 require_relative('aws_role_credentials_provider')
+require_relative('aws_principal_credentials_provider')
 require_relative('env_credentials_provider')
 
 module Cerberus
@@ -17,7 +18,8 @@ module Cerberus
 
       # return default array of providers
       @providers = [Cerberus::EnvCredentialsProvider.new,
-                    Cerberus::AwsRoleCredentialsProvider.new(vaultBaseUrl, instanceMdSvcBaseUrl)]
+                    Cerberus::AwsRoleCredentialsProvider.new(vaultBaseUrl, instanceMdSvcBaseUrl),
+                    Cerberus::AwsPrincipalCredentialsProvider.new(vaultBaseUrl)]
     end
 
     ##
