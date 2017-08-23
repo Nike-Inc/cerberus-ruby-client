@@ -90,6 +90,22 @@ Then open Interactive Ruby:
 2.2.2 :001 > vaultClient.read("app/example/test")
 ```
 
+** Note: If a `LoadError` is thrown with a message `cannot load such file` this may be because
+you have added new files. Commit the new files and re-build your gem to ensure the new files
+get included in your gem release candidate  .
+
+### Run Tests Locally
+
+```bash
+% gem install rspec
+```
+
+Then in the top-level project directory, run
+
+```bash
+% rspec spec
+```
+
 ### Running in AWS
 
 If the environment variables used in local development are not found, the client will try to use the AWS metadata
