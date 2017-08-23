@@ -46,8 +46,7 @@ module Cerberus
     def initialize(vaultBaseUrl)
       @vaultBaseUrl = vaultBaseUrl
       @clientToken = nil
-      @instanceMdSvcBaseUrl = INSTANCE_METADATA_SVC_BASE_URL
-      @role = getRoleFromInstanceMetadata
+      @role = get_role_info
 
       LOGGER.debug("AwsPrincipalCredentialsProvider initialized with vault base url #{@vaultBaseUrl}")
     end
@@ -76,12 +75,25 @@ module Cerberus
 
     end
 
+    private
+
+    ##
+    # Uses provided data to determine how to construct the AwsRoleInfo use by this provider
+    ##
+    def get_role_info
+      begin
+        return get_role_from_instance_metadata
+      rescue Cerberus::Exception::HttpError
+        return nil
+      end
+    end
+
     ##
     # Use the instance metadata to extract the role information
     # This function should only be called from an EC2 instance otherwise the http
     # call will fail.
     ##
-    def getRoleFromInstanceMetadata
+    def get_role_from_instance_metadata
       role_arn = getIAMRoleARN
       region = getRegionFromAZ(getAvailabilityZone)
       account_id = getAccountIdFromRoleARN(role_arn)
@@ -168,7 +180,7 @@ module Cerberus
     # else throw an IOError for non-2xx responses and RuntimeError for any exceptions down the stack
     ##
     def doHttpToMDService(relUri)
-      url = URI(@instanceMdSvcBaseUrl + relUri)
+      url = URI(INSTANCE_METADATA_SVC_BASE_URL + relUri)
       CerberusClient::Http.new.doHttp(url, 'GET', false)
     end
 
