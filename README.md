@@ -94,6 +94,18 @@ Then open Interactive Ruby:
 you have added new files. Commit the new files and re-build your gem to ensure the new files
 get included in your gem release candidate  .
 
+### Run Tests Locally
+
+```bash
+% gem install rspec
+```
+
+Then in the top-level project directory, run
+
+```bash
+% rspec spec
+```
+
 ### Running in AWS
 
 If the environment variables used in local development are not found, the client will try to use the AWS metadata
