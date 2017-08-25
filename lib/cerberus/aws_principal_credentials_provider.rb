@@ -117,7 +117,7 @@ module Cerberus
         LOGGER.debug("Got auth data from Cerberus. Attempting to decrypt...")
 
         # decrypt the data we got from cerberus to get the vault token
-        kms = Aws::KMS::Client.new(region: @role.region, credentials: @role.credentials[:credentials])
+        kms = Aws::KMS::Client.new(region: @role.region)
 
         decryptedAuthDataJson = JSON.parse(kms.decrypt(ciphertext_blob: Base64.decode64(authData)).plaintext)
 
