@@ -17,7 +17,7 @@ module Cerberus
   ##
   # The AWS IAM role credentials provider
   # 
-  # Tries to uthenticate with Cerberus using the EC2 Instance Profile ARN
+  # Tries to authenticate with Cerberus using the given IAM role
   ##
   class AwsAssumeRoleCredentialsProvider
 
