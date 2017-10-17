@@ -5,7 +5,7 @@
 [![Build](https://travis-ci.org/Nike-Inc/cerberus-ruby-client.svg?branch=master)](https://travis-ci.org/Nike-Inc/cerberus-ruby-client)
 
 
-This is a Ruby based client library for communicating with Vault via HTTP and enables authentication schemes specific
+This is a Ruby based client library for communicating with Ceberus via HTTP and enables authentication schemes specific
 to AWS and Cerberus.
 
 This client currently supports read-only operations (write operations are not yet implemented, feel free to open a
@@ -39,7 +39,11 @@ $ gem install cerberus_client
 Please start by reading the [Cerberus quick start guide](http://engineering.nike.com/cerberus/docs/user-guide/quick-start).
 
 ```ruby
-vaultClient = CerberusClient::getVaultClient()
+cerberus_client = CerberusClient::get_default_cerberus_client()
+```
+
+```ruby
+cerberus_client = CerberusClient::get_cerberus_client_for_assumed_role(Cerberus::DefaultUrlResolver.new, "arn:aws:iam::<account_id>:role/<role_name>", "us-west-2")
 ```
 
 There are two ways Cerberus clients are typically used:
@@ -49,7 +53,7 @@ There are two ways Cerberus clients are typically used:
 
 ### Local Development
 
-The example Ruby code above uses the DefaultUrlResolver to resolve the URL for Vault. For that to succeed, the
+The example Ruby code above uses the DefaultUrlResolver to resolve the URL for Cerberus. For that to succeed, the
 environment variable, CERBERUS_ADDR, must be set:
 ```bash
 export CERBERUS_ADDR=https://cerberus.example.com
@@ -60,12 +64,12 @@ export CERBERUS_ADDR=https://localhost:9001
 ```
 
 The example above also use the DefaultCredentialsProviderChain which is used to resolve the token needed to interact
-with Vault. This chain will first look to see if an environemnt variable has been set with a vault token, e.g.
+with Cerberus. This chain will first look to see if an environemnt variable has been set with a cerberus token, e.g.
 ```bash
 export CERBERUS_TOKEN=9cfced14-91ae-e3ad-5b9d-1cae6c82362d
 ```
 
-Increment the version and add `.rc.1` to the end in the `lib/cerberus_client/version.rb` file.
+Increment the version and add `.rc.1` to the end in the `lib/cerberus_utils/version.rb` file.
 
 Then build and install the gem locally:
 
@@ -86,7 +90,7 @@ Then open Interactive Ruby:
 % irb
 
 2.2.2 :001 > require 'cerberus_client'
-2.2.2 :001 > vaultClient = CerberusClient::getDefaultVaultClient()
+2.2.2 :001 > vaultClient = CerberusClient::get_default_vault_client()
 2.2.2 :001 > vaultClient.read("app/example/test")
 ```
 

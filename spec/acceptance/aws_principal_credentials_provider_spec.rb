@@ -1,11 +1,11 @@
-require_relative('../../lib/cerberus/aws_role_credentials_provider')
+require_relative('../../lib/cerberus/aws_principal_credentials_provider')
+require_relative('../../lib/cerberus/default_url_resolver')
 require_relative('../../lib/cerberus/exception/no_value_error')
 require_relative('../fake_test_provider_chain')
-require_relative('hardcoded_testing_url_resolver')
 
 ##
 # This is an acceptance test to validate that the client is working properly
-# ON AN EC2 INSTANACE - it does NOT run by default using rspec
+# ON AN EC2 INSTANCE - it does NOT run by default using rspec
 #
 # export AWS_CREDS_PROVIDER_TEST=true then run this test using rspec to validate
 #
@@ -19,15 +19,13 @@ require_relative('hardcoded_testing_url_resolver')
 
 if ENV["AWS_CREDS_PROVIDER_TEST"] == 'true'
 
-  describe Cerberus::AwsRoleCredentialsProvider do
+  describe Cerberus::AwsPrincipalCredentialsProvider do
 
-    context "test getCredentials" do
+    context "test get_client_token" do
       it "should try to get credentials" do
+        awsProvider = Cerberus::AwsPrincipalCredentialsProvider.new(Cerberus::DefaultUrlResolver.new)
 
-        awsProvider = Cerberus::AwsRoleCredentialsProvider.new(
-            CerberusClient::getUrlFromResolver(HardcodedTestingUrlResolver.new))
-
-        expect(awsProvider.getClientToken.is_a? String).to eq true
+        expect(awsProvider.get_client_token.is_a? String).to eq true
       end
     end
 
@@ -35,12 +33,13 @@ if ENV["AWS_CREDS_PROVIDER_TEST"] == 'true'
 
       it "should read from Cerberus using AWS role auth" do
 
-        path = "app/your-app/local"
-        key = value = "test"
+        path = "app/sdb-name/secret"
+        key = "key"
+        value = "value"
 
-        vaultClient = CerberusClient::getVaultClientWithUrlResolver(HardcodedTestingUrlResolver.new)
+        cerberus_client = CerberusClient::get_default_cerberus_client()
 
-        expect(vaultClient.readKey(path, key)).to eq value
+        expect(cerberus_client.read(path)["#{key}"]).to eq value
       end
     end
 

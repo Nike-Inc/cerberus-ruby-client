@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cerberus_client/version'
+require 'cerberus_utils/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "cerberus_client"
-  spec.version       = CerberusClient::VERSION
-  spec.authors       = ["Joe Teibel"]
-  spec.email         = ["joe.teibel@nike.com"]
+  spec.version       = CerberusUtils::VERSION
+  spec.authors       = ["Shaun Ford", "Joe Teibel"]
+  spec.email         = ["shaun.ford@nike.com"]
 
   spec.summary       = ["A Ruby Client for Cerberus, a secure property store for cloud applications"]
-  spec.description   = "This is a Ruby based client library for communicating with Vault via HTTP and enables authentication schemes specific to AWS and Cerberus. This client currently supports read-only operations (write operations are not yet implemented, feel free to open a pull request to implement write operations). To learn more about Cerberus, please visit the Cerberus website."
+  spec.description   = "This is a Ruby based client library for communicating with Cerberus via HTTP and enables authentication schemes specific to AWS and Cerberus. This client currently supports read-only operations (write operations are not yet implemented, feel free to open a pull request to implement write operations). To learn more about Cerberus, please visit the Cerberus website."
   spec.homepage      = "https://github.com/Nike-Inc/cerberus-ruby-client"
   spec.license       = "Apache License Version 2"
 

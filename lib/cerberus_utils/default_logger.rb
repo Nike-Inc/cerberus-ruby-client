@@ -1,5 +1,5 @@
 
-module CerberusClient
+module CerberusUtils
 
   require('logger')
 

@@ -1,5 +1,5 @@
 
-module CerberusClient
+module CerberusUtils
 
   require_relative('../cerberus/exception/http_error')
   require('net/http')
@@ -15,14 +15,14 @@ module CerberusClient
     # Generic HTTP handler for Cerberus Client needs
     # uri: the fully qualified URI object to call
     # method: the HTTP method to use'
-    # useSSL: boolean - use HTTPS or not
-    # jsonData: if not nil, made the request body and 'Content-Type' header is set to "application/json"
+    # use_ssl: boolean - use HTTPS or not
+    # json_data: if not nil, made the request body and 'Content-Type' header is set to "application/json"
     # headers: if not nil, should be a HashMap of header Key, Values
     ##
-    def doHttp(uri, method, useSSL, jsonData = nil, headersMap = nil)
+    def make_http_call(uri, method, use_ssl, json_data = nil, headers_map = nil)
 
       begin
-        CerberusClient::Log.instance.debug("Http::doHttp -> uri: #{uri}, method: #{method}, useSSL: #{useSSL}, jsonData: #{jsonData}")
+        CerberusUtils::Log.instance.debug("Http::make_http_call -> uri: #{uri}, method: #{method}, use_ssl: #{use_ssl}, json_data: #{json_data}")
 
         http = Net::HTTP.new(uri.host, uri.port)
 
@@ -36,12 +36,13 @@ module CerberusClient
                 raise NotImplementedError
             end
 
-        if(jsonData != nil); request.body = "#{jsonData}"; request['Content-Type'] = "application/json"; end
+        if(json_data != nil); request.body = "#{json_data}"; request['Content-Type'] = "application/json"; end
 
-        if(headersMap != nil); headersMap.each{ |headerKey, headerValue| request[headerKey] = headerValue } end
-        request['X-Cerberus-Client'] = "CerberusRubyClient/#{CerberusClient::VERSION}"
+        if(headers_map != nil); headers_map.each{ |headerKey, headerValue| request[headerKey] = headerValue } end
+        request['X-Cerberus-Client'] = "CerberusRubyClient/#{CerberusUtils::VERSION}"
 
-        http.use_ssl = useSSL
+        puts request
+        http.use_ssl = use_ssl
         response = http.request(request)
 
         # this is just for convenience handling down the stack... response object inclucded with the exception

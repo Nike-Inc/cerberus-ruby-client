@@ -4,20 +4,20 @@ module Cerberus
   require_relative('exception/no_value_error')
 
   ##
-  # The default Vault URL resolver - looks for #{CERBERUS_VAULT_URL_ENV_KEY} in env vars
+  # The default Cerberus URL resolver - looks for #{CERBERUS_URL_ENV_KEY} in env vars
   ##
   class DefaultUrlResolver
 
-    CERBERUS_VAULT_URL_ENV_KEY = "CERBERUS_ADDR"
+    CERBERUS_URL_ENV_KEY = "CERBERUS_ADDR"
 
     ##
-    # Look for the vault url in the env var
+    # Look for the cerberus url in the env var
     ##
-    def getUrl
-      urlOption = ENV[CERBERUS_VAULT_URL_ENV_KEY]
+    def get_url
+      url_option = ENV[CERBERUS_URL_ENV_KEY]
 
-      if(urlOption != nil)
-        return urlOption
+      if(url_option != nil)
+        return url_option
       else
         raise Cerberus::Exception::NoValueError
       end
