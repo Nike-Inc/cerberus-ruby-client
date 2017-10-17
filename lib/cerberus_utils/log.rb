@@ -1,4 +1,4 @@
-module CerberusClient
+module CerberusUtils
 
   require_relative('default_logger')
   require('singleton')

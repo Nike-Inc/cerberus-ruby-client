@@ -1,12 +1,12 @@
-require_relative('../../lib/cerberus_client/http')
+require_relative('../../lib/cerberus_utils/http')
 
-describe CerberusClient::Http do
+describe CerberusUtils::Http do
 
   context "Init and test Http" do
 
     it "initialize" do
-      http = CerberusClient::Http.new
-      expect(http.instance_of?(CerberusClient::Http)).to eq true
+      http = CerberusUtils::Http.new
+      expect(http.instance_of?(CerberusUtils::Http)).to eq true
     end
 
 

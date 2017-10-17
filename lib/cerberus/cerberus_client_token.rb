@@ -2,7 +2,7 @@
 
 module Cerberus
 
-  require_relative('../cerberus_client/log')
+  require_relative('../cerberus_utils/log')
 
   ##
   # Object to hold the Cerberus client token credentials and check for expiration and refresh
@@ -20,8 +20,8 @@ module Cerberus
       @createTime = Time.now
       @cacheLifetimeSec = cacheLifetimeSec
       @policies = policiesArray
-      CerberusClient::Log.instance.debug("AwsCredentials cache lifetime set to #{@cacheLifetimeSec} seconds")
-      CerberusClient::Log.instance.debug("AwsCredentials policies: #{@policies.join(", ")}")
+      CerberusUtils::Log.instance.debug("AwsCredentials cache lifetime set to #{@cacheLifetimeSec} seconds")
+      CerberusUtils::Log.instance.debug("AwsCredentials policies: #{@policies.join(", ")}")
       @authToken = authToken
     end
 

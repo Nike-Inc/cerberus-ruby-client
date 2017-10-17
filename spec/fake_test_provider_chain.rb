@@ -1,6 +1,6 @@
 require('fake_provider')
 class FakeTestProviderChain
-  def getCredentialsProvider
+  def get_credentials_provider
     return FakeProvider.new
   end
 end
